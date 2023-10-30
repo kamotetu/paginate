@@ -23,10 +23,12 @@ $page_name = 'page';
 // }
 
 $sql = 'select * from users';
+$order_by = 'ASC';
 
 $paginator = new Paginator(
     $pdo,
     $sql,
+    $order_by,
     $result_view_count,
     $paginate_margin,
     $paginate_path,
@@ -46,6 +48,7 @@ $paginate_button_quantity = $paginator->count;
     <head>
         <meta charset="utf-8">
         <title>ページネーションテスト</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
     <body>
         <style>
@@ -82,16 +85,7 @@ $paginate_button_quantity = $paginator->count;
             max.addEventListener('change', function (e) {
                 max_form.submit();
             });
-            // let buttons = document.getElementsByClassName('paginate_button');
-            // let page_input = document.querySelector('[name="paginate_page"]');
-            // for (let i = 0;buttons.length > i;++i) {
-            //     buttons[i].addEventListener('click', function (e) {
-            //         let page = e.target.value;
-            //         page_input.value = page;
-            //         max_form.submit();
-            //     });
-            // }
         </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>

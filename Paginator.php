@@ -17,6 +17,12 @@ class Paginator
     private $base_sql;
 
     /**
+     * Undocumented variable
+     *
+     * @var [type]
+     */
+    private $order_by;
+    /**
      * paginate php file path
      *
      * @var string
@@ -98,6 +104,7 @@ class Paginator
     public function __construct(
         PDO $pdo,
         string  $base_sql,
+        string $order_by,
         int $result_view_count,
         int $margin,
         ?string $paginate_path,
@@ -109,6 +116,7 @@ class Paginator
     {
         $this->pdo = $pdo;
         $this->base_sql = $base_sql;
+        $this->order_by = $order_by;
         $this->result_view_count = $result_view_count;
         $this->margin = $margin;
         $this->paginate_path = $paginate_path;
