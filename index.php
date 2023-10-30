@@ -6,46 +6,35 @@ require_once __DIR__ . '/Paginator.php';
 $pdo = connectDb();
 
 $page = null;
-$max = 3;
-$start = null;
+$result_view_count = 2;
 $paginate_margin = 2;
-$prev = null;
 $visible_margin_prev_next = true;
 $visible_margin_start_end = true;
+$paginate_path = __DIR__ . '/paginate.php';
 $is_visible_prev = false;
 $is_visible_next = false;
 $is_visible_start = false;
 $is_visible_end = false;
-$paginate_button_class = 'paginate_button';
 $form_name = 'form';
 $page_name = 'page';
 
-if (!empty($_GET['page'])) {
-    $page = (int)h($_GET['page'] ?? 1);
-} else {
-    $page = 1;
-}
-if (isset($_GET['max'])) {
-    $max = (int)h($_GET['max']);
-}
-
-if ($page > 0) {
-    $start = ($max * $page) - $max;
-}
+// if (isset($_GET['max'])) {
+//     $result_view_count = (int)h($_GET['max']);
+// }
 
 $sql = 'select * from users';
 
 $paginator = new Paginator(
     $pdo,
     $sql,
-    $max,
+    $result_view_count,
     $paginate_margin,
+    $paginate_path,
     $visible_margin_prev_next,
     $visible_margin_start_end,
-    true,
-    $paginate_button_class,
     $form_name,
-    $page_name
+    $page_name,
+
 );
 
 $result = $paginator->result;
@@ -59,6 +48,11 @@ $paginate_button_quantity = $paginator->count;
         <title>ページネーションテスト</title>
     </head>
     <body>
+        <style>
+            .paginate_button {
+                margin: 0 auto;
+            }
+        </style>
         <form action="" method="get" name="<?php echo $form_name; ?>">
             <input type="hidden" name="<?php echo $page_name; ?>" value="">
             <label for="max">表示件数</label>
@@ -66,7 +60,7 @@ $paginate_button_quantity = $paginator->count;
                 <?php for ($i = 1;5 > $i;++$i) : ?>
                     <option
                         value="<?php echo $i; ?>"
-                        <?php if ((int)$max === (int)$i) :?>
+                        <?php if ((int)$result_view_count === (int)$i) :?>
                             selected="selected"
                         <?php endif; ?>
                     >
@@ -80,7 +74,7 @@ $paginate_button_quantity = $paginator->count;
             <?php endforeach; ?>
         </ul>
         <?php $paginator->paginate(); ?>
-        
+
 
         <script>
             let max = document.getElementById('max');
@@ -98,6 +92,6 @@ $paginate_button_quantity = $paginator->count;
             //     });
             // }
         </script>
-        
+
     </body>
 </html>

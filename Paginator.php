@@ -17,11 +17,11 @@ class Paginator
     private $base_sql;
 
     /**
-     * Undocumented variable
+     * paginate php file path
      *
-     * @var bool
+     * @var string
      */
-    private $auto;
+    private $paginate_path;
 
     /**
      *
@@ -63,7 +63,7 @@ class Paginator
      *
      * @var ?int
      */
-    private $max;
+    private $result_view_count;
 
     /**
      * visible margin buttons from current
@@ -98,24 +98,22 @@ class Paginator
     public function __construct(
         PDO $pdo,
         string  $base_sql,
-        int $max,
+        int $result_view_count,
         int $margin,
+        ?string $paginate_path,
         bool $visible_margin_prev_next = false,
         bool $visible_margin_start_end = false,
-        bool $auto = true,
-        string $paginate_button_class = 'paginate_button',
         string $form_name = 'form',
         string $page_name = 'page',
     )
     {
         $this->pdo = $pdo;
         $this->base_sql = $base_sql;
-        $this->max = $max;
+        $this->result_view_count = $result_view_count;
         $this->margin = $margin;
+        $this->paginate_path = $paginate_path;
         $this->visible_margin_prev_next = $visible_margin_prev_next;
         $this->visible_margin_start_end = $visible_margin_start_end;
-        $this->auto = $auto;
-        $this->paginate_button_class = $paginate_button_class;
         $this->form_name = $form_name;
         $this->page_name = $page_name;
 
@@ -123,15 +121,17 @@ class Paginator
             ? (int)$_GET[$this->page_name]
             : 1;
         $this->result = $this->getResult();
-        $this->getCount();
+        $this->count = $this->getCount();
 
     }
 
     private function getResult()
     {
-        var_dump($this->page);
-        $start = ((int)$this->max * (int)$this->page) - (int)$this->max;
-        $sql = $this->base_sql . ' ' . ' LIMIT ' . $start . ',' . $this->max;
+        if ($this->page < 1) {
+            $this->page = 1;
+        }
+        $start = ((int)$this->result_view_count * (int)$this->page) - (int)$this->result_view_count;
+        $sql = $this->base_sql . ' ' . ' LIMIT ' . $start . ',' . $this->result_view_count;
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -143,11 +143,19 @@ class Paginator
         $stml = $this->pdo->prepare($sql);
         $stml->execute();
         $result = $stml->fetchColumn();
-        $this->count = (int)ceil($result / $this->max);
+        $count = (int)ceil($result / $this->result_view_count);
+        if ($count < 1) {
+            $count = 1;
+        }
+        return $count;
     }
 
     public function paginate()
     {
-        require_once "./paginate.php";
+        $paginate_path = $this->paginate_path;
+        if (!$paginate_path) {
+            $paginate_path = __DIR__ . '/paginate.php';
+        }
+        require_once $paginate_path;
     }
 }
