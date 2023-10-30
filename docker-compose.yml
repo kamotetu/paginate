@@ -1,0 +1,52 @@
+version: "3.4"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    restart: always
+    volumes:
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./:/var/www/html/
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql
+      - mail
+      
+  mysql:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    command:
+      - --sql-mode=NO_ENGINE_SUBSTITUTION
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=develop
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    volumes:
+      - ./docker/phpmyadmin/sessions:/sessions
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=user
+      - PMA_PASSWORD=password
+    ports:
+      - 4040:80
+    depends_on:
+      - mysql
+  mail:
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - "8025:8025"

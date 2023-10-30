@@ -1,0 +1,6 @@
+/docker/mysql/data/
+/source/data/logs/*.log
+/source/data/upload/*
+!/source/data/upload/.gitkeep
+/source/data/config/config.php
+/docker/phpmyadmin
