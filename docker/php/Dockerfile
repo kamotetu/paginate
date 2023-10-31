@@ -6,3 +6,10 @@ RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources
     apt-get install -y libzip-dev zlib1g-dev && \
     docker-php-ext-install mysqli pdo_mysql zip && \
     a2enmod rewrite
+
+RUN curl -sS https://getcomposer.org/installer \
+    |  php -- \
+        --filename=composer \
+        --install-dir=/usr/local/bin \
+    && chown www-data /var/www \
+    && chmod g+s /var/www/html
