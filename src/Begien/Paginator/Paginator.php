@@ -1,11 +1,14 @@
 <?php
 
+namespace Begien\Paginator;
+
 class Paginator
 {
+    private const DEFAULT_PAGINATE_PATH = __DIR__ . '/../template/paginate.php';
     /**
      * connected PDO
      *
-     * @var PDO
+     * @var \PDO
      */
     private $pdo;
 
@@ -17,52 +20,39 @@ class Paginator
     private $base_sql;
 
     /**
-     * Undocumented variable
-     *
-     * @var [type]
-     */
-    private $order_by;
-    /**
      * paginate php file path
      *
-     * @var string
+     * @var ?string
      */
-    private $paginate_path;
-
-    /**
-     *
-     *
-     * @var string
-     */
-    private $paginate_button_class;
+    private $paginate_path = self::DEFAULT_PAGINATE_PATH;
 
     /**
      * Undocumented variable
      *
      * @var string
      */
-    private $form_name;
+    private $form_name = 'form';
 
     /**
      * requested page
      *
      * @var string
      */
-    private $page_name;
+    private $page_name = 'page';
 
     /**
      * visible button of move one from current
      *
-     * @var ?bool
+     * @var bool
      */
-    private $visible_margin_prev_next;
+    private $visible_prev_next = true;
 
     /**
      * visible button of start and end
      *
-     * @var ?bool
+     * @var bool
      */
-    private $visible_margin_start_end;
+    private $visible_start_end = true;
 
     /**
      * visible buttons limit count
@@ -86,51 +76,78 @@ class Paginator
     public $result = [];
 
     /**
-     * Undocumented variable
+     * create paginate html
      *
      * @var html
      */
     public $paginate;
 
+    /**
+     * count of paginate buttons
+     *
+     * @var int
+     */
     public $count;
 
     /**
-     * page value
+     * current page
      *
-     * @var ?int
+     * @var int
      */
     private $page;
 
+    /**
+     * option values
+     *
+     * @var array{
+     * paginate_path: ?string,
+     * visible_prev_next: ?bool,
+     * visible_start_end: ?bool,
+     * form_name: ?string,
+     * page_name: ?string,
+     * }
+     */
+    private static $default_options = [
+        'paginate_path' => self::DEFAULT_PAGINATE_PATH,
+        'visible_prev_next' => true,
+        'visible_start_end' => true,
+        'form_name' => 'form',
+        'page_name' => 'page',
+    ];
+
     public function __construct(
-        PDO $pdo,
+        \PDO $pdo,
         string  $base_sql,
-        string $order_by,
         int $result_view_count,
         int $margin,
-        ?string $paginate_path,
-        bool $visible_margin_prev_next = false,
-        bool $visible_margin_start_end = false,
-        string $form_name = 'form',
-        string $page_name = 'page',
+        array $options = []
     )
     {
         $this->pdo = $pdo;
         $this->base_sql = $base_sql;
-        $this->order_by = $order_by;
         $this->result_view_count = $result_view_count;
         $this->margin = $margin;
-        $this->paginate_path = $paginate_path;
-        $this->visible_margin_prev_next = $visible_margin_prev_next;
-        $this->visible_margin_start_end = $visible_margin_start_end;
-        $this->form_name = $form_name;
-        $this->page_name = $page_name;
+        if (isset($options['paginate_path'])) {
+            $this->paginate_path = $options['paginate_path'];
+        }
+        if (isset($options['visible_prev_next'])) {
+            $this->visible_prev_next = $options['visible_prev_next'];
+        }
+        if (isset($options['visible_start_end'])) {
+            $this->visible_start_end = $options['visible_start_end'];
+        }
+        if (isset($options['form_name'])) {
+            $this->form_name = $options['form_name'];
+        }
+        if (isset($options['page_name'])) {
+            $this->page_name = $options['page_name'];
+        }
 
         $this->page = isset($_GET[$this->page_name])
             ? (int)$_GET[$this->page_name]
             : 1;
         $this->result = $this->getResult();
         $this->count = $this->getCount();
-
     }
 
     private function getResult()
@@ -160,10 +177,20 @@ class Paginator
 
     public function paginate()
     {
-        $paginate_path = $this->paginate_path;
-        if (!$paginate_path) {
-            $paginate_path = __DIR__ . '/paginate.php';
-        }
-        require_once $paginate_path;
+        require_once $this->paginate_path;
+    }
+
+    /**
+     * @return array{
+     * paginate_path: ?string,
+     * visible_prev_next: ?bool,
+     * visible_start_end: ?bool,
+     * form_name: ?string,
+     * page_name: ?string,
+     * }
+     */
+    public static function getDefaultOptions(): array
+    {
+        return self::$default_options;
     }
 }

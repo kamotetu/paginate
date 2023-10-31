@@ -3,17 +3,12 @@
     $is_visible_prev = false;
     $is_visible_start = false;
     $is_visible_end = false;
-
-    $visible_margin_prev_next = null;
-    $visible_margin_start_end = null;
-    $form_name = null;
-    $page_name = null;
 ?>
 <?php if ($this->count > 0) :?>
     <div class="begien_paginate_wrapper">
         <?php for ($i = 1;$this->count >= $i;++$i) : ?>
             <?php if ($this->page > 1) : ?>
-                <?php if ($this->visible_margin_start_end && !$is_visible_start) : ?>
+                <?php if ($this->visible_start_end && !$is_visible_start) : ?>
                     <?php $is_visible_start = true; ?>
                     <button
                         type="button"
@@ -23,7 +18,7 @@
                         <<
                     </button>
                 <?php endif; ?>
-                <?php if ($this->visible_margin_prev_next && !$is_visible_prev) : ?>
+                <?php if ($this->visible_prev_next && !$is_visible_prev) : ?>
                     <?php $is_visible_prev = true; ?>
                     <button
                         type="button"
@@ -52,7 +47,7 @@
 
         <?php endfor; ?>
         <?php if ($this->page < $this->count) : ?>
-            <?php if ($this->visible_margin_prev_next && !$is_visible_next) : ?>
+            <?php if ($this->visible_prev_next && !$is_visible_next) : ?>
                 <?php $is_visible_next = true; ?>
                 <button
                     type="button"
@@ -62,7 +57,7 @@
                     >
                 </button>
             <?php endif; ?>
-            <?php if ($this->visible_margin_start_end && !$is_visible_end) : ?>
+            <?php if ($this->visible_start_end && !$is_visible_end) : ?>
                 <?php $is_visible_end = true; ?>
                 <button
                     type="button"
@@ -81,13 +76,10 @@
     for (let i = 0;buttons.length > i;++i) {
         buttons[i].addEventListener('click', function (e) {
             let page = e.target.value;
-            let form = null;
-            <?php if ($this->form_name) : ?>
-                form = document.querySelector('[name="<?php echo $this->form_name; ?>"]');
-                console.log(form);
-            <?php else : ?>
+            let form = document.querySelector('[name="<?php echo $this->form_name; ?>"]');
+            if (!form) {
                 form = this.closest('form') ?? document.querySelector('form');
-            <?php endif; ?>
+            }
             page_input.value = page;
             form.submit();
         });
