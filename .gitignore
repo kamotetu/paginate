@@ -6,3 +6,4 @@
 /docker/phpmyadmin
 /vendor/
 /docker/
+/composer.lock
