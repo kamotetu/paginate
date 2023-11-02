@@ -1,10 +1,10 @@
 <?php
 
+require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . '/config/config.php';
-require_once __DIR__ . '/Begien/Paginator/Paginator.php';
+use Begien\Paginator;
 
 $pdo = connectDb();
-var_dump($pdo);
 
 $result_view_count = 2;
 $paginate_margin = 2;
@@ -13,21 +13,22 @@ if (isset($_GET['max'])) {
     $result_view_count = (int)h($_GET['max']);
 }
 
-$sql = 'select * from users order by id desc';
+$sql = 'select * from users order by id asc';
 
-$options = Begien\Paginator\Paginator::getDefaultOptions();
+$options = Paginator::getDefaultOptions();
 $options['form_name'] = 'hoge';
 
-$paginator = new Begien\Paginator\Paginator(
+$paginator = new Paginator(
     $pdo,
     $sql,
     $result_view_count,
     $paginate_margin,
-    $options,
+    $options
 );
 
 $result = $paginator->result;
 $paginate_button_quantity = $paginator->count;
+$result_count = $paginator->result_count
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +43,9 @@ $paginate_button_quantity = $paginator->count;
                 margin: 0 auto;
             }
         </style>
+        <div>
+            <?php echo $result_count; ?>件ヒットしました。
+        </div>
         <form action="" method="get" name="form">
             <input type="hidden" name="page" value="">
             <label for="max">表示件数</label>

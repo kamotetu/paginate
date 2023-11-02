@@ -4,3 +4,4 @@
 !/source/data/upload/.gitkeep
 /source/data/config/config.php
 /docker/phpmyadmin
+/vendor/

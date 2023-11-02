@@ -1,21 +1,11 @@
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="../vendor/autoload.php"
-         cacheTokens="true"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="false"
-         verbose="false">
-  <filter>
-    <whitelist>
-      <directory>../src/</directory>
-    </whitelist>
-  </filter>
-  <testsuite name="Begien\Paginator Test Suite">
-    <directory>.</directory>
-  </testsuite>
+<phpunit
+    bootstrap="../vendor/autoload.php"
+    colors="true"
+    cacheResult ="false"
+>
+    <testsuites>
+        <testsuite name="BegienPaginatorTest">
+            <directory>../tests/Begien</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>

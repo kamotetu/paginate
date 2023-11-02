@@ -4,6 +4,19 @@
     $is_visible_start = false;
     $is_visible_end = false;
 ?>
+<style>
+    .begien_paginate_wrapper button {
+        border: 1px solid;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: <?php echo $this->background_color['default']; ?>;
+        color: <?php echo $this->color['default']; ?>;
+    }
+    .begien_paginate_wrapper button.selected {
+        background-color: <?php echo $this->background_color['selected']; ?>;
+        color: <?php echo $this->color['selected']; ?>;
+    }
+</style>
 <?php if ($this->count > 0) :?>
     <div class="begien_paginate_wrapper">
         <?php for ($i = 1;$this->count >= $i;++$i) : ?>
@@ -37,10 +50,13 @@
             <button
                 type="button"
                 value="<?php echo $i; ?>"
-                class="paginate_button"
-                <?php if ((int)$this->page === (int)$i) :?>
-                    style="color: red;"
-                <?php endif; ?>
+                class="
+                    paginate_button
+                    <?php if ((int)$this->page === (int)$i) :?>
+                        selected
+                    <?php endif; ?>
+                "
+
             >
                 <?php echo $i; ?>
             </button>
