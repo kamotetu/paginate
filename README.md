@@ -115,10 +115,16 @@ $result_count = $paginator->result_count // 👈 ヒットしたデータの数
 ### 必要なタグ
 
 ```html
+<form name="form" method="get">
+```
+ページネータのボタンをクリックすると、テンプレート内のformを検索してsubmit処理を行います。<br>
+デフォルトでは`name="form"`を検索してsubmitします。
+
+```html
 <input type="hidden" name="page" value="">
 ```
 ページネータのボタンを押した際に、そのボタンの数字をセットするinputを必ず指定してください。<br>
-デフォルトでは"name=page"のフォームを検索して、valueをセットします
+デフォルトでは`name="page"`を検索して、valueをセットします
 
 ## options
 
