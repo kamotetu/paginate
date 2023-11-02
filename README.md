@@ -5,8 +5,23 @@
 ## install with composer
 
 ```
-$ composer require begien/simplepaginator:dev-master
+$ composer require begien/simplepaginator:~1.0
 ```
+
+or
+
+composer.json
+```json
+{
+    "require": {
+        "begien/simplepaginator": "~1.0"
+    }
+}
+```
+```
+$ composer install
+```
+
 
 ## Example
 
