@@ -128,11 +128,11 @@ $result_count = $paginator->result_count // 👈 ヒットしたデータの数
 $options = Paginator::getDefaultOptions(); // 👈 デフォルトのオプションを取得できます
 ```
 
-### paginate_path
+- paginate_path
 
-デフォルトで用意しているテンプレート以外を利用したい場合、そのテンプレートのパスを指定します<br>
-デフォルトではこのライブラリで用意したテンプレートのパスが指定されています。<br>
-以下はデフォルトテンプレートです。カスタムテンプレート作成時に参考にしてください。
+  デフォルトで用意しているテンプレート以外を利用したい場合、そのテンプレートのパスを指定します<br>
+  デフォルトではこのライブラリで用意したテンプレートのパスが指定されています。<br>
+  以下はデフォルトテンプレートです。カスタムテンプレート作成時に参考にしてください。
 
 ```html
 <?php
@@ -240,40 +240,40 @@ $options = Paginator::getDefaultOptions(); // 👈 デフォルトのオプシ�
 </script>
 ```
 
-### visible_prev_next
+- visible_prev_next
 
-ページネータの"前へ","次へ"を表示するかどうかを指定します<br>
-デフォルト: true
+  ページネータの"前へ","次へ"を表示するかどうかを指定します<br>
+  デフォルト: true
 
-### visible_start_end
+- visible_start_end
 
-ページネータの"開始へ","最後へ"を表示するかどうかを指定します<br>
-デフォルト: true
+  ページネータの"開始へ","最後へ"を表示するかどうかを指定します<br>
+  デフォルト: true
 
-### form_name
+- form_name
 
-ページネータのボタンをクリックした際、submitさせたい`<form>`のnameを指定します。<br>
-デフォルト: "form"
+  ページネータのボタンをクリックした際、submitさせたい`<form>`のnameを指定します。<br>
+  デフォルト: "form"
 
-### page_name
-ページネータのボタンのvalueをセットする`<input>`のnameを指定します<br>
-デフォルト: "page"
+- page_name
+  ページネータのボタンのvalueをセットする`<input>`のnameを指定します<br>
+  デフォルト: "page"
 
-### background_color
-ページネータのボタンの背景色を指定します<br>
-default: 未選択時の色<br>
-selected: 選択時の色<br>
-デフォルト: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;default: buttonface
-&nbsp;&nbsp;&nbsp;&nbsp;selected: aqua
+- background_color
+  ページネータのボタンの背景色を指定します<br>
+  default: 未選択時の色<br>
+  selected: 選択時の色<br>
+  デフォルト: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;default: buttonface<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;selected: aqua
 
-### color
-ページネータのボタンの数字の色を指定します<br>
-default: 未選択時の色<br>
-selected: 選択時の色<br>
-デフォルト: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;default: black
-&nbsp;&nbsp;&nbsp;&nbsp;selected: black
+- color
+  ページネータのボタンの数字の色を指定します<br>
+  default: 未選択時の色<br>
+  selected: 選択時の色<br>
+  デフォルト: <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;default: black<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;selected: black
 
 
 ## LICENCE
@@ -283,4 +283,4 @@ MIT
 https://github.com/kamotetu<br>
 https://begien.com
 
-適当に楽しんでください。
+適当に使ってみてください。
