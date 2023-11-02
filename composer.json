@@ -1,6 +1,7 @@
 {
-    "name": "begien/paginator",
+    "name": "begien/simplepaginator",
     "type": "library",
+    "version": "1.0.0",
     "description": "simple paginator",
     "homepage": "https://github.com/kamotetu/paginate",
     "keywords": ["phpmailer"],
