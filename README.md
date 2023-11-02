@@ -298,4 +298,4 @@ MIT
 https://github.com/kamotetu<br>
 https://begien.com
 
-適当に使ってみてください。
+遊んでくれれば幸いです。
