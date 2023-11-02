@@ -5,3 +5,4 @@
 /source/data/config/config.php
 /docker/phpmyadmin
 /vendor/
+/docker/
