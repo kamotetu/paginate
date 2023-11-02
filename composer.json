@@ -1,4 +1,15 @@
 {
+    "name": "begien/paginator",
+    "type": "library",
+    "description": "simple paginator",
+    "homepage": "https://github.com/kamotetu/paginate",
+    "keywords": ["phpmailer"],
+    "authors": [
+        {
+            "name": "kamotetu",
+            "email": "beginnerengineerblog@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Begien\\": "src//Begien",
@@ -10,5 +21,6 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --configuration tests/phpunit.xml"
-    }
+    },
+    "license": "MIT"
 }
