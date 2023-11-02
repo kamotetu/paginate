@@ -9,3 +9,5 @@
 /composer.lock
 /src/config/
 /src/index.php
+/docker-compose.yml
+/Makefile
